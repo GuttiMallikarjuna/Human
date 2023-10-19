@@ -17,26 +17,26 @@
     <style>
       @font-face { font-family: 'Lato'; font-display: swap; font-style: normal; font-weight: 100; src: local('Lato'), url('../assets/lato-light.woff2') }
       html { font-family: 'Lato', 'Segoe UI'; font-size: 16px; font-variant: small-caps; }
-      body { margin: 0; background: black; color: white; overflow-x: hidden; width: 100vw; height: 100vh; }
+      body { margin: 0;  color: white; overflow-x: hidden; width: 50vw; height: 80vh; }
       body::-webkit-scrollbar { display: none; }
-      hr { width: 100%; }
-      .play { position: absolute; width: 256px; height: 256px; z-index: 9; bottom: 15%; left: 50%; margin-left: -125px; display: none; filter: grayscale(1); }
+      hr { width: 50%; }
+      .play { position: absolute; width: 100px; height: 100px; z-index: 9; top: 45%; bottom: 10%; left: 38%; margin-left: -125px; display: none; filter: grayscale(1); }
       .play:hover { filter: grayscale(0); }
       .btn-background { fill:grey; cursor: pointer; opacity: 0.6; }
       .btn-background:hover { opacity: 1; }
       .btn-foreground { fill:white; cursor: pointer; opacity: 0.8; }
       .btn-foreground:hover { opacity: 1; }
-      .status { position: absolute; width: 100vw; bottom: 10%; text-align: center; font-size: 3rem; font-weight: 100; text-shadow: 2px 2px #303030; }
+      .status { position: absolute; width: 50vw; bottom: 10%; text-align: center; font-size: 3rem; font-weight: 100; text-shadow: 2px 2px #303030; }
       .thumbnail { margin: 8px; box-shadow: 0 0 4px 4px dimgrey; }
       .thumbnail:hover { box-shadow: 0 0 8px 8px dimgrey; filter: grayscale(1); }
-      .log { position: absolute; bottom: 0; margin: 0.4rem 0.4rem 0 0.4rem; font-size: 0.9rem; }
-      .menubar { width: 100vw; background: #303030; display: flex; justify-content: space-evenly; text-align: center; padding: 8px; cursor: pointer; }
+      .log { position: fixed; bottom: 0; width: 65%; font-size: 0.9rem; }
+      .menubar { width: 65vw; background: #303030; display: flex; justify-content: space-evenly; text-align: center; padding: 8px; cursor: pointer; }
       .samples-container { display: flex; flex-wrap: wrap; }
       .video { display: none; }
       .canvas { margin: 0 auto; }
       .bench { position: absolute; right: 0; bottom: 0; }
       .compare-image { width: 200px; position: absolute; top: 150px; left: 30px; box-shadow: 0 0 2px 2px black; background: black; display: none; }
-      .loader { width: 300px; height: 300px; border: 3px solid transparent; border-radius: 50%; border-top: 4px solid #f15e41; animation: spin 4s linear infinite; position: absolute; bottom: 15%; left: 50%; margin-left: -150px; z-index: 15; }
+      .loader { width: 100px; height: 100px; border: 3px solid transparent; border-radius: 50%; border-top: 4px solid #f15e41; animation: spin 4s linear infinite; position: absolute; bottom: 15%; top: 46%; right: 63%;  z-index: 15; }
       .loader::before, .loader::after { content: ""; position: absolute; top: 6px; bottom: 6px; left: 6px; right: 6px; border-radius: 50%; border: 4px solid transparent; }
       .loader::before { border-top-color: #bad375; animation: 3s spin linear infinite; }
       .loader::after { border-top-color: #26a9e0; animation: spin 1.5s linear infinite; }
@@ -84,9 +84,34 @@
       .fas { display: inline-block;	width: 0;	height: 0; border-style: solid; }
       .fa-caret-down { border-width: 10px 8px 0 8px; border-color: white transparent }
       .fa-caret-right {	border-width: 10px 0 8px 10px; border-color: transparent transparent transparent white; }
+    .main-container{
+      display: flex;
+
+    }
+    .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin: 8px;
+      }
+
+      #canvas.canvas {
+        width: 66vw !important;
+        display: block !important;
+      }
+      iframe[iframetag] {
+         border: none;
+         width: 420px;
+         height: 700px;
+         overflow: hidden;
+      }
+
     </style>
   </head>
   <body>
+    <div class="main-container">
+    
+      <div class="main main1">
     <div id="play" class="play icon-play"></div>
     <div id="background">
       <div class="wave one"></div>
@@ -102,17 +127,25 @@
       <div id="btnModel" class="icon"><div class="icon-games"></div>models</div>
       <div id="btnStart" class="icon"><div class="icon-webcam"></div><span id="btnStartText">start video</span></div>
     </div>
-    <div id="media">
+    <div >
       <canvas id="canvas" class="canvas"></canvas>
       <video id="video" playsinline class="video"></video>
     </div>
     <div id="compare-container" class="compare-image">
-      <canvas id="compare-canvas" width="200" height="200"></canvas>
+      <canvas id="compare-canvas" ></canvas>
       <div id="similarity"></div>
     </div>
     <div id="samples-container" class="samples-container"></div>
     <div id="hint" class="hint"></div>
     <div id="log" class="log"></div>
     <div id="results" class="results"></div>
+  </div>
+  <div class="main main2">
+    <div id="iframeDiv">
+      <iframe src="main.html" iframetag></iframe>
+   </div>    
+</div>
   </body>
+
+
 </html>
