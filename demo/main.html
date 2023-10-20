@@ -8,17 +8,39 @@
 
 <style>
     #side{
-        width: 400px !important;
-        height: 250px;
+        width: 380px !important;
+        height: 300px;
     }
     #pure-emotion{
         display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
+    #pure-emotion label{
+        color: white;
+    }
+    
+  #emotion-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  input{
+    width: 200px;
+    padding: 5px;
+  }
+  #mode{
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 </style>
 
 <body>
     <div id="emotion-div">
-        <label>Auto Record:</label>
+        <label style="font-size: 22px; color: white; font-weight: 600;">Auto Record</label>
         <div id="pure-emotion">
             <div>
                 <label for="">Emotion NLP : </label>
@@ -31,7 +53,7 @@
         </div>
         <!-- <h1>Emotions: <p id="para"></p></h1> -->
     </div>
-    <div id="transcript" style="height: 300px; width: auto;"></div>
+    <div id="transcript" style="height: 300px; width: auto; color: white; margin-top: 20px;"></div>
 
 
     <div id="content">
@@ -45,13 +67,10 @@
             <input type="checkbox" id="cbx" style="display:none" checked=true />
             <label for="cbx" class="toggle"><span></span></label>
           </div>
-          <select id="mode">
-            <option value="waveform">Waveform</option>
-            <option value="bar-graph">Bar Graph</option>
-            <option value="rgb-bar-graph">RGB Bar Graph</option>
-            <option value="spectrogram">Spectogarm</option>
-          </select>
+         
+          <label style="font-size: 17px; font-weight: 600; color: white;">Wave Form</label>
         </div>
+       
         <canvas id="side"></canvas>
         <audio id="audio-main" controls></audio>
       </div>
