@@ -32,18 +32,11 @@ let recognition;
         transcriptElement.textContent = transcript;
       };
 
-    //   recognition.onstart = () => {
-    //     startRecordingButton.disabled = true;
-    //   };
+    
 
       recognition.start();
 
-    //   startRecordingButton.addEventListener("click", () => {
-    //     startRecordingButton.disabled = true;
-    //     startRecording();
-    //   });
-
-
+  
       const constraints = { audio: true };
 
       navigator.mediaDevices.getUserMedia(constraints)
@@ -209,27 +202,7 @@ window.onload = function () {
 
             let mouseHz = -10 / Math.log((mouseX / WIDTH)) / (Math.log(441000 / 2 - 1) / WIDTH)
 
-            if (select.value == "bar-graph") {
-                analyser.getByteFrequencyData(dataArray);
-                for (var i = 0; i < bufferLength; i++) {
-                    let x = Math.floor(Math.log(i) / scale);
-                    barHeight = dataArray[i];
-                    //  var r = barHeight + (25  (i/bufferLength));
-                    //          var g = 250 * (i/bufferLength);
-                    //          var b = 50; 
-                    var h = 300 - barHeight * 300 / 255;
-                    var s = 100 + "%";
-                    var l = barHeight < 64 ? barHeight * 50 / 64 + "%" : "50%";
-                    ctx.fillStyle = "hsl(" + h + "," + s + "," + l + ")";
-                    // ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                    ctx.fillRect(
-                        x,
-                        HEIGHT - barHeight * HEIGHT / 255,
-                        Math.floor(Math.log(i + 1) / scale) - Math.floor(Math.log(i) / scale),
-                        HEIGHT
-                    );
-                }
-            } else if (select.value == "waveform") {
+           
                 analyser.getByteFrequencyData(dataArray);
                 let start = 0 //dataArray.find(a=> Math.max.apply('',dataArray));
                 analyser.getByteTimeDomainData(dataArray);
@@ -251,67 +224,7 @@ window.onload = function () {
                 }
                 ctx.lineTo(WIDTH, dataArray[0] / 128.0 * HEIGHT / 2);
                 ctx.stroke();
-            } else if (select.value == "rgb-bar-graph") {
-                //ctx.globalCompositeOperation = "hue";
-                analyser.getByteFrequencyData(dataArray);
-                var imgData = ctx.createImageData(WIDTH, HEIGHT);
-                // for (var i = 0; i < bufferLength; i += 2) {
-                //   let x = i / 3 *  WIDTH / bufferLength;
-                //   var r = dataArray[i];
-                //   var g = dataArray[i + 1];
-                //   var b = dataArray[i + 2];
-                for (j = 0; j < imgData.data.length; j += 4) {
-                    let y = j / 4 / WIDTH;
-                    let x = Math.floor(((j / 4) % WIDTH) * bufferLength / WIDTH);
-                    imgData.data[j + 0] =
-                        255 - dataArray[x] <= y * (255 / HEIGHT) ? dataArray[x] : 0;
-                    imgData.data[j + 1] =
-                        255 - dataArray[x + 1] <= y * (255 / HEIGHT) ? dataArray[x + 1] : 0;
-                    imgData.data[j + 2] =
-                        255 - dataArray[x + 2] <= y * (255 / HEIGHT) ? dataArray[x + 2] : 0;
-                    imgData.data[j + 3] = 255;
-                }
-                ctx.putImageData(imgData, 0, 0);
-                // ctx.fillStyle = "rgb(" + r + "," + 0 + "," + 0 + ")";
-                // ctx.fillRect(x, HEIGHT - (r * HEIGHT / 255), 1, HEIGHT);
-                // ctx.fillStyle = "rgb(" + 0 + "," + g + "," + 0 + ")";
-                // ctx.fillRect(x, HEIGHT - (g * HEIGHT / 255), 1, HEIGHT);
-                // ctx.fillStyle = "rgb(" + 0 + "," + 0 + "," + b + ")";
-                // ctx.fillRect(x, HEIGHT - (b * HEIGHT / 255), 1, HEIGHT);
-                // }
-            } else {
-                if (typeof (a)) {
-                    analyser.getByteFrequencyData(dataArray);
-                    if (window.it % 2 == 0) dataHistory.unshift(new Uint8Array(dataArray));
-                    window.it++
-                }
-                if (dataHistory.length > 32) {
-                    dataHistory.pop();
-                }
-                for (let j = 0; j < dataHistory.length; j++) {
-                    for (var i = 0; i < bufferLength; i++) {
-                        let x = Math.floor(Math.log(i) / scale);
-                        barHeight = dataHistory[j][i];
-                        //  var r = barHeight + (25  (i/bufferLength));
-                        //        var g = 250 * (i/bufferLength);
-                        //        var b = 50; 
-                        var h = 300 - barHeight * 300 / 255;
-                        var s = 100 + "%";
-                        var l = barHeight < 64 ? barHeight * 50 / 64 + "%" : "50%";
-                        ctx.fillStyle = "hsl(" + h + "," + s + "," + l + ")";
-                        // ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                        ctx.fillRect(
-                            x,
-                            HEIGHT / dataHistory.length * j,
-                            Math.floor(Math.log(i + 1) / scale) -
-                            Math.floor(Math.log(i) / scale),
-                            HEIGHT * j +
-                            1 / dataHistory.length -
-                            HEIGHT * j / dataHistory.length
-                        );
-                    }
-                }
-            }
+           
 
             ctx.textBaseline = "bottom";
             ctx.textAlign = "left";
